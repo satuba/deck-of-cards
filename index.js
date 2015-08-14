@@ -1,17 +1,12 @@
 "use strict";
 
-function Deck(fullDeck, arrayOfSuits, arrayOfRanks, shuffledDeck) {
-  this.fullDeck = fullDeck;
-  this.arrayOfSuits = arrayOfSuits;
-  this.arrayOfRanks = arrayOfRanks;
-  this.shuffledDeck = shuffledDeck;
-};
-
-
-Deck.prototype.createDeck = function() {
-  for (var i = 0; i < this.arrayOfSuits.length; i++) {
-    for (var j = 0; j < this.arrayOfRanks.length; j++) {
-      this.fullDeck.push(this.arrayOfRanks[j] + " of " + this.arrayOfSuits[i]);
+function Deck() {
+  this.fullDeck = [];
+  var ranks = [1,2,3,4,5,6,7,8,9,10,11,12,13];
+  var suits = ["Hearts", "Spades","Clubs", "Diamonds"];
+  for (var i = 0; i < suits.length; i++) {
+    for (var j = 0; j < ranks.length; j++) {
+      this.fullDeck.push(ranks[j] + " of " + suits[i]);
     };
   };
 };
@@ -22,7 +17,7 @@ Deck.prototype.showNewDeck = function() {
 
 Deck.prototype.shuffle = function() {
   var deck = this.fullDeck;
-  var shuffled = this.shuffledDeck;
+  var shuffled = [];
 
   function pickRandom(min, max) {
     if(max === 0) {
@@ -43,24 +38,24 @@ Deck.prototype.showShuffledDeck = function() {
 };
 
 
-Deck.prototype.deal = function(players, hand, playerArray) {
-  this.playerArray = playerArray;
+Deck.prototype.deal = function(players, hand) {
+  this.playerArray = [];
   var index = 0;
 
   //create players
   for(var i = 1; i <= players; i++) {
-    playerArray.push([]);
+    this.playerArray.push([]);
   }
 
   //deal
   for (var i = 0; i < this.shuffledDeck.length; i++) {
-    if(playerArray[players-1].length === hand) {
+    if(this.playerArray[players-1].length === hand) {
       return console.log("deal!");
     } else {
       if(index >= hand) {
         index = 0;
       }
-      playerArray[index].push(this.shuffledDeck[i]);
+      this.playerArray[index].push(this.shuffledDeck[i]);
       this.shuffledDeck.splice(i,1);
       index = index + 1;
     }
@@ -73,22 +68,19 @@ Deck.prototype.showGame = function() {
   console.log(this.playerArray);
 };
 
-var newDeck = new Deck([],["Hearts", "Spades","Clubs", "Diamonds"],[1,2,3,4,5,6,7,8,9,10,11,12,13],[]);
-
-//create new deck
-newDeck.createDeck();
+var newDeck = new Deck();
 
 // show the whole deck
-// newDeck.showNewDeck();
+newDeck.showNewDeck();
 
 //shuffle deck
 newDeck.shuffle();
 
-// show shuffled deck
-// newDeck.showShuffledDeck();
+// // show shuffled deck
+newDeck.showShuffledDeck();
 
-//deal for 5 players 5 cards per hand
-newDeck.deal(5,5,[]);
+// //deal for 5 players 5 cards per hand
+newDeck.deal(5,5);
 
-//show players' hands and the size of the rest of the deck
+// //show players' hands and the size of the rest of the deck
 newDeck.showGame();
