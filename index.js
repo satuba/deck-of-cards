@@ -70,17 +70,17 @@ Deck.prototype.showGame = function() {
 
 var newDeck = new Deck();
 
-// show the whole deck
+//show the whole deck
 newDeck.showNewDeck();
 
 //shuffle deck
 newDeck.shuffle();
 
-// // show shuffled deck
+//show shuffled deck
 newDeck.showShuffledDeck();
 
-// //deal for 5 players 5 cards per hand
+//deal for 5 players 5 cards per hand
 newDeck.deal(5,5);
 
-// //show players' hands and the size of the rest of the deck
+//show players' hands and the size of the rest of the deck
 newDeck.showGame();
